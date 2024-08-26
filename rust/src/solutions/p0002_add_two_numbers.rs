@@ -18,6 +18,8 @@ impl ListNode {
 pub struct Solution;
 
 impl Solution {
+
+    // 3ms 2.1mb
     pub fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         let (mut l1, mut l2) = (l1, l2);
         let mut node = None;
@@ -39,13 +41,29 @@ impl Solution {
                     cur = &mut cur.insert(a).next;
                 },
                 (x, y) => {
-                    let mut node = x.or(y);
-                    let res = loop {
-                        match node {
-                            Some(mut c) => {
-                                c.val = 
-                            },
-                            None => b
+                    if temp == 0 {
+                        break x.or(y);
+                    }
+                    let mut l3 = x.or(y);
+                    let mut node = None;
+                    let mut cur2 = &mut node;
+                    *cur2 = loop {
+                        if let Some(mut c) = l3 {
+                            let sum = c.val + temp;
+                            if sum >= 10 {
+                                c.val = sum - 10;
+                                temp = 1;
+                            } else {
+                                c.val = sum;
+                                temp = 0;
+                            }
+                            l3 = c.next.take();
+                            cur2 = &mut cur2.insert(c).next;
+                        } else {
+                            if temp == 1 {
+                                cur2 = &mut cur2.insert(Box::new(ListNode::new(1))).next;
+                            }
+                            break None;
                         }
                     };
 
