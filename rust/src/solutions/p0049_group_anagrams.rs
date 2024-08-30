@@ -87,13 +87,3 @@ impl SolutionSort {
         map.into_values().collect()
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_group_anagrams() {
-
-    }
-}
